@@ -1,0 +1,490 @@
+%!
+%%Title: ADMAP -- Adventure Map utility, v2.56 (c) Fredric Ihren
+%%CreationDate:	Sep 24 1990
+%%Creator: Fredric Ihren, fred@nada.kth.se
+%%EndComments
+
+% v2.56: Adjusted to run under ralpage : redefinition of token and removal
+%        of null cvx
+
+(ADMAP v2.56\n) print flush
+% Initstate of dictstack
+/dictlevel0 countdictstack def
+
+% Synonyms for operators
+/+ /add load def
+/- /sub load def
+/* /mul load def
+/: /div load def
+/rl /rlineto load def
+/cp /currentpoint load def
+/m /moveto load def
+/rm /rmoveto load def
+
+/token {
+  dup length 0 ne {
+    dup 0 get 37 ne {
+      { token } stopped { pop false } { 3 -1 roll cvlit 3 1 roll } ifelse
+    } { pop false } ifelse
+  } { pop false } ifelse
+} bind def
+
+% Simple macros
+% /cm { 2.54 : 72 * } def
+/++ { dup load 1 + store } def
+/setup? { /resetmatrix know not { (No SETUP) error } if } def
+/imatrix { resetmatrix setmatrix } def
+/XT { XW D + } def
+/YT { YW D + } def
+/XWM { XW SC * 0.9 * } def
+/UDH { D 0.35 * } def
+/UDB { UDH 0.5 * } def
+/at { YW0 D + * } def
+/alt {
+  /XW ALTXW dup 0 eq { pop XW } if store
+  /YW ALTYW dup 0 eq { pop YW } if store
+} def
+/normal { /XW XW0 store /YW YW0 store } def
+/dir { /DIR exch def /PP load dup 0 cp pop put 1 cp exch pop put } def
+/adx { ALTXW XW0 - 2 : XT : abs } def % Half the difference in width/height
+/ady { ALTYW YW0 - 2 : YT : abs } def % between a box and an altbox./
+/set { /do exch store /go exch store } def
+/go {} def
+/do {} def
+/sf { dup currentfont exch scalefont setfont /FS exch FS mul store } def
+
+% Variable defaults
+/R# 0 def /PR# -1 def /ERR# 0 def /lin 0 def /Q true def
+/XMIN 999 def /XMAX -999 def /YMIN 999 def /YMAX -999 def
+/$L 100 string def /$N 40 string def
+/PP { 0 0 m } def /roomp { 0 0 } def /origop { 0 0 } def
+
+% Setup Defaults
+/XW 0.7 def
+/YW 0.5 def	% Note: 0 means determine from YN
+/XW0 XW def /YW0 YW def
+/XN 12 def
+/YN 0 def	% Note: 0 means determine from YW
+/ROT? false def
+/DBUG? true def
+/XOFFS 0 def
+/YOFFS 0 def
+/FS0 6 def
+/FS 6 def
+/Times-Roman findfont FS scalefont setfont
+/ALTXW 0 def
+/ALTYW 0 def
+
+% Synonyms
+/ALTBOXWIDTH /ALTXW cvx def
+/ALTBOXHEIGHT /ALTYW cvx def
+/BOXWIDTH /XW0 cvx def
+/BOXHEIGHT /YW0 cvx def
+
+% Procedures
+/cbox { 0 1 index rl exch 0 rl neg 0 exch rl closepath } def
+/crcx { dup stringwidth pop -0.5 * 0 rm } def
+/left { dup stringwidth pop neg 0 rm } def
+/know { currentdict exch known } def
+/autoshrink {
+  dup stringwidth pop dup XWM le { pop }
+    { currentfont [ XWM 3 index : 0 0 1 0 0 ] makefont setfont pop }
+  ifelse
+} def
+/numcheck {
+  type dup /integertype eq exch /realtype eq or not
+  { (No number) error } if
+} def
+/cvr1d { 10 mul round 0.1 mul dup dup cvi sub 0 eq { cvi } if } def
+/getnum {
+  line token not { (Number missing) error } if
+  dup numcheck exch /line exch def
+} def
+/linenum {
+  line cvx { exec } stopped { (Syntax) error } if
+  count 1 ne { (One number expected) error } if
+  dup numcheck
+} def
+/gettoken {
+  line token not { (Name missing) error } if
+  cvlit exch /line exch def
+} def
+
+% Procedures for room-definitions
+/rooms 300 dict def
+/roomdict 50 dict dup begin
+  /n { YT + } def
+  /e { exch XT + exch } def
+  /s { YT - } def
+  /w { exch XT - exch } def
+  /ne { n e } def
+  /nw { n w } def
+  /sw { s w } def
+  /se { s e } def
+  /n# { at + } def
+  /e# { 3 -1 roll exch XT * + exch } def
+  /s# { neg n# } def
+  /w# { neg e# } def
+  /dash { [ 1 1 ] 0 setdash } def
+  /@nw { { 0.2 FS * YW SC * FS 0.9 * - rm } {} set } def
+  /@n { { XW SC * 0.5 * YW SC * FS 0.9 * - rm } /crcx load set } def
+  /@ne { { XW SC * 0.2 FS * - YW SC * FS 0.9 * - rm } /left load set } def
+  /@w { { 0.2 FS * YW SC * FS l# * + 0.5 * 0.8 FS * - rm } {} set
+  } def
+  /@center { { XW SC * 0.5 * YW SC * FS l# * + 0.5 * 0.8 FS * - rm }
+    /crcx load set } def
+  /@e { { XW SC * 0.2 FS * - YW SC * FS l# * + 0.5 * 0.8 FS * - rm }
+    /left load set } def
+  /@sw { { 0.2 FS * 0.2 FS * l# 1 - FS * + rm } {} set } def
+  /@s { { XW SC * 0.5 * 0.1 FS * l# 1 - FS * + rm } /crcx load set } def
+  /@se { { XW SC * 0.2 FS * - 0.2 FS * l# 1 - FS * + rm } /left load set } def
+  /@NW { { 0 YW SC * 0.2 FS * + l# 1 - FS * + rm } {} set } def
+  /@N { { XW SC * 0.5 * YW SC * FS 0.2 * + l# 1 - FS * + rm } /crcx load set
+  } def
+  /@NE { { XW SC * YW SC * 0.2 FS * + l# 1 - FS * + rm } /left load set } def
+  /@SW { { 0 FS neg rm } {} set } def
+  /@S { { XW SC * 0.5 * FS neg rm } /crcx load set } def
+  /@SE { { XW SC * FS neg rm } /left load set } def
+  /@EN { { XW SC * 0.2 FS * + YW SC * FS - rm } {} set } def
+  /@E { { XW SC * 0.2 FS * + YW SC * FS l# * + 0.5 * 0.8 FS * - rm }
+    {} set } def
+  /@ES { { XW SC * 0.2 FS * + l# 1 - FS * rm } {} set } def
+  /@WN { { -0.2 FS * YW SC * FS - rm } /left load set } def
+  /@W { { -0.2 FS * YW SC * FS l# * + 0.5 * 0.8 FS * - rm } /left load set
+  } def
+  /@WS { { -0.2 FS * l# 1 - FS * rm } /left load set } def
+end def
+
+% Procedures for exit-definitions
+/exitdict 50 dict dup begin
+  /n# { D * 3 1 roll YW + exch XW 0.5 * + exch m 0 dir 0 exch rl cp } def
+  /n { 0.5 n# } def
+  /N# { YT * 0 exch rl pop pop cp } def
+  /N { 1 N# } def
+  /w# { D * 3 1 roll YW 0.5 * + m 2 dir neg 0 rl cp } def
+  /w { 0.5 w# } def
+  /W# { neg E# } def
+  /W { 1 W# } def
+  /s# { D * 3 1 roll exch XW 0.5 * + exch m 4 dir 0 exch neg rl cp } def
+  /s { 0.5 s# } def
+  /S# { neg N# } def
+  /S { 1 S# } def
+  /e# { D * 3 1 roll exch XW + exch YW 0.5 * + m 6 dir 0 rl cp } def
+  /e { 0.5 e# } def
+  /E# { XT * 0 rl pop pop cp } def
+  /E { 1 E# } def
+  /nw# { dup D * neg exch D * 4 2 roll YW + m 1 dir rl cp } def
+  /nw { 0.5 nw# } def
+  /NW# { dup XT * neg exch YT * rl pop pop cp } def
+  /NW { 1 NW# } def
+  /sw# { dup D * neg exch D * neg 4 2 roll m 3 dir rl cp } def
+  /sw { 0.5 sw# } def
+  /SW# { neg NE# } def
+  /SW { 1 SW# } def
+  /se# { dup D * exch D * neg 4 2 roll exch XW + exch m 5 dir rl cp } def
+  /se { 0.5 se# } def
+  /SE# { dup XT * exch YT * neg rl pop pop cp } def
+  /SE { 1 SE# } def
+  /ne# { dup D * exch D * 4 2 roll exch XW + exch YW + m 7 dir rl cp} def
+  /ne { 0.5 ne# } def
+  /NE# { dup XT * exch YT * rl pop pop cp } def
+  /NE { 1 NE# } def
+  /NS { pop 1 index lineto cp } def 
+  /EW { exch pop 2 index exch lineto cp } def
+  /u {
+    gsave newpath PP DIR 45 * rotate
+    -0.5 UDB * UDH rl UDB 0 rl closepath fill grestore
+  } def
+  /d { gsave newpath PP DIR 45 * rotate
+    -0.5 UDB * 0 rl 0.5 UDB * UDH rl UDB 0.5 * UDH neg rl
+    closepath fill grestore
+  } def
+  /closed { gsave cp newpath m 
+    DIR 45 * rotate -0.2 D * 0 rmoveto 0.4 D * 0 rl stroke
+    grestore
+  } def
+  /oneway {
+    gsave newpath PP DIR 45 * rotate
+    -0.2 D * 0.3 D * rl 0.2 D * -0.3 D * rl
+    0.2 D * 0.3 D * rl stroke
+    grestore
+  } def
+  /? {
+    gsave imatrix
+      DIR 0 eq DIR 1 eq DIR 7 eq or or { 0 FS 0.2 * rm } if
+      DIR 2 eq DIR 6 eq or { 0 FS0 0.3 * neg rm } if
+      DIR 3 eq DIR 4 eq DIR 5 eq or or { 0 FS neg rm } if
+      DIR 1 eq DIR 2 eq DIR 3 eq or or { FS -0.6 * 0 rm } if
+      DIR 5 ge { FS 0.1 * 0 rm } if
+      DIR 0 eq DIR 4 eq or { (?) stringwidth pop -0.5 * 0 rm } if
+      (?) show
+    grestore
+  } def
+  /dash { [ 1 SC : dup ] 0 setdash } def
+end def
+
+% Command procedures
+/commands 25 dict dup begin
+  /SETUP {
+    endpage /PR# 0 def
+    /origmatrix know
+      { origmatrix setmatrix }
+      { /origmatrix matrix currentmatrix def }
+    ifelse
+    /LLX know not {
+      /LLX 45 def /LLY 23 def /URX 570 def /URY 793 def
+    } if % Default page area in enter-matrix coordinates
+    ROT? {
+      /LLX 24 def /LLY 30 def /URX 818 def /URY 540 def % 22,28
+      90 rotate 0 -598 translate
+    } if % Page area for rotated in (enter-matrix)-rot coordinates
+    /resetmatrix matrix currentmatrix def
+    LLX LLY translate
+    /YH URY LLY - def /XH URX LLX - def
+    0 setlinewidth 0 0 m XH YH cbox
+    clip newpath
+    /SC XH XN : def
+    /D 1 XW - def
+    YN 0 eq YW 0 eq and { /YW XW def } if
+    YN 0 eq { /YN YH SC : YT : cvi def } if
+    YW 0 eq { /YW YH SC : YN : D - def } if
+    /XW0 XW def /YW0 YW def
+    SC dup scale D 2 : dup translate
+    DBUG? {
+      (D:) print D $N cvs print (,SC:) print SC $N cvs print (,YW:) print
+      YW $N cvs print (,YN:) print YN $N cvs print (,XW:) print
+      XW $N cvs print (,XN:) print XN = flush
+%      0 0 m XN 1 - XW + YN 1 - at YW + cbox
+%      gsave imatrix [ 1 4 ] 0 setdash stroke grestore
+    } if
+    newpath XOFFS neg YOFFS neg at translate
+  } def
+  /ROTATE { /ROT? true def } def
+  /WIDTH { linenum /XN exch def } def
+  /HEIGHT { linenum /YN exch def /YW 0 def } def
+  /OFFSET { /XOFFS getnum def /YOFFS getnum def } def
+  /BOXWIDTH { linenum /XW exch def } def
+  /BOXHEIGHT { linenum /YW exch def /YN 0 def } def
+  /ALTBOXHEIGHT { linenum /ALTYW exch def } def
+  /ALTBOXWIDTH { linenum /ALTXW exch def } def
+  /ROOM {
+    PR# 0 lt { commands /SETUP get exec } if
+    /room gettoken def
+    /fullname room $N cvs def
+    /R# ++
+    rooms room /origop load put % Unsuccessfull rooms end up at origo
+    line token {
+      exch pop dup type /stringtype eq
+        { /fullname exch def gettoken }
+      if pop
+    } { (Syntax) error } ifelse
+    gsave
+      place
+      /roomp load dup 1 4 -1 roll put 0 3 -1 roll put
+      clear
+      roomp dup YMIN lt { dup /YMIN exch def } if
+      dup YMAX gt { dup /YMAX exch def } if
+      pop dup XMIN lt { dup /XMIN exch def } if
+      dup XMAX gt { dup /XMAX exch def } if pop
+      rooms room [ roomp ] cvx put
+      /names [
+        { fullname (/) search
+            { exch pop exch /fullname exch def }
+            { exit }
+          ifelse
+        } loop
+      ] def
+      gsave
+        roomp m
+        gsave XW YW cbox gsave 1 setgray fill grestore
+        imatrix 0.5 setlinewidth stroke grestore
+        XW 0.5 * YW rm
+        imatrix 0 YW SC * FS names length * - 0.5 * 0.8 FS * + neg rm
+        names { gsave autoshrink crcx show grestore 0 FS neg rmoveto } forall
+      grestore
+    grestore
+% Test for on-page: (incomplete)
+    roomp YT : dup YOFFS lt exch YOFFS YN + ge or
+      exch dup XOFFS lt exch XOFFS XN + ge or or not { /PR# ++ } if
+  } def
+  /R /ROOM load def
+  /EXIT { setup?
+    gsave
+      rooms begin exitdict begin
+      clear line cvx { exec } stopped { grestore (Syntax) error } if
+      end end
+      count 4 ge { pop pop lineto } if
+      stroke
+    grestore
+  } def
+  /TEXT { setup?
+    /keep save def
+    /$T $L length string def
+    roomdict /@nw get exec
+    gsave
+      place m clear imatrix
+      { currentfile $T readline {
+          /lin ++
+          dup token { /ENDTEXT eq { pop pop exit } if pop } if
+          dup length string copy
+        } { pop exit } ifelse
+      } loop
+      count /l# exch def
+      /notext know { /do { pop () } def } if
+      count -1 2 { 1 roll } for
+      go
+      { count 0 eq { exit } if
+        gsave do show grestore 0 FS neg rm
+      } loop
+    grestore
+    keep restore
+  } def
+  /INDEX { setup?
+    gsave
+      roomdict /@nw get exec
+      /fullname gettoken dup type /stringtype ne { $N cvs } if def
+      place m clear imatrix 0.67 sf
+      /l# 1 def
+      /notext know { /do { pop () } def } if
+      fullname go do show
+    grestore
+  } def
+  /XPS {
+    line token
+      { pop pop line cvx exec }
+      { pop currentfile token { exec } if }
+    ifelse
+  } def
+  /CREATOR { /creatorinfo line dup length string copy def } def
+  /TITLE { /titleinfo line dup length string copy def } def
+  /TIME { /timeinfo line dup length string copy def } def
+  /FONTSIZE {
+    /FS0 getnum def
+    /Times-Roman findfont FS0 gsave
+      /resetmatrix know { imatrix } if
+      scalefont
+    grestore setfont
+  } def
+  /NULL { /#copies 0 def } def
+  /NOTEXT { /notext true def } def
+  /END { /endexit /exit load def /Q false def stop } def
+end def
+
+/place {
+  rooms begin roomdict begin
+  clear line cvx { exec } stopped { grestore (Syntax) error } if
+  end end
+  count 2 ne { grestore (Number missing) error } if
+  2 copy numcheck numcheck
+} def
+
+% Parser procedures
+/error { whaterror /Q false def stop } def
+/whaterror {
+  newpath
+  countdictstack dictlevel0 - { end } repeat
+  /ERR# ++
+  dup print ( error at line ) print lin =
+  gsave
+    /resetmatrix know { imatrix LLX 2 + URY } { 47 790 } ifelse
+    ERR# 1 + FS * 2 * 2 * - m 2 2 scale
+    gsave (ADMAP v2.56. ) show show ( error at line ) show lin $N cvs show
+    /$error where {
+      pop $error begin newerror {
+        (  ) show errorname $N cvs show ( : ) show /command load $N cvs show
+        (>) print errordict /handleerror get exec
+      } if
+      end
+    } if
+    grestore 0 FS neg rm (") show oline show (") show
+    (") print oline print ("\n) print
+  grestore
+} def
+
+/process {
+  dup dup /line exch def /oline exch def
+%  (Received ") print oline print (": ) print
+  token {
+    dup commands exch known
+      { cvlit /cmd exch def /line exch def }
+      { pop pop /cmd /EXIT def }
+    ifelse
+    /FS FS0 store
+    clear commands cmd get exec
+  } if
+} def
+
+/endpage {
+  PR# 0 gt {
+    /endpagedict know not { /endpagedict 1 dict def } if
+    gsave imatrix initclip 
+      /Courier-Bold findfont 7 scalefont setfont
+      /WX (X) stringwidth pop def
+      URX URY 4 + m
+      -34 WX * 0 rm cp cp
+      (Extents of map : ) show (\() show XMIN cvr1d $N cvs show (,) show
+      YMIN YW0 D + : cvr1d $N cvs show (\) to \() show XMAX cvr1d $N cvs show
+      (,) show YMAX YW0 D + : cvr1d $N cvs show (\)) show
+      m 0 7 rm cp
+      (Extents of page: ) show (\() show XOFFS cvr1d $N cvs show (,) show 
+      YOFFS $N cvs show (\) to \() show XN XOFFS + 1 - cvr1d $N cvs show
+      (,) show YN YOFFS + 1 - cvr1d $N cvs show (\)) show
+      DBUG? {
+        (Extents of map : ) print (\() print XMIN cvr1d $N cvs print (,) print
+        YMIN YW0 D + : cvr1d $N cvs print (\) to \() print XMAX cvr1d $N cvs
+        print (,) print YMAX YW0 D + : cvr1d $N cvs print (\)\n) print
+        (Extents of page: ) print (\() print XOFFS cvr1d $N cvs print (,)
+        print YOFFS $N cvs print (\) to \() print XN XOFFS + 1 - cvr1d $N cvs
+        print (,) print YN YOFFS + 1 - cvr1d $N cvs print (\)\n) print
+      } if
+      m 0 7 rm
+      /timeinfo know {
+        (Time: ) show
+        endpagedict begin
+          /XWM 27 WX * def
+          gsave timeinfo autoshrink show grestore
+        end
+      } if
+      m -24 WX * 0 rm cp cp
+      (Locations on map : ) show R# $N cvs show
+      m 0 7 rm cp
+      (Locations on page: ) show PR# $N cvs show
+      m 0 7 rm
+      /creatorinfo know {
+        (Creator: ) show
+        endpagedict begin
+          /XWM 12 WX * def
+          gsave creatorinfo autoshrink show grestore
+        end
+      } if
+      m
+      /titleinfo know {
+        endpagedict begin
+          cp pop LLX - dup WX - /XWM exch def -0.5 * 2 rm
+          gsave
+            /Times-Bold findfont 20 scalefont setfont
+            titleinfo autoshrink crcx show
+          grestore
+        end
+      } if
+      0 setlinewidth LLX LLY m XH YH cbox stroke
+    grestore showpage
+  } if
+} def
+/endexit null cvx def
+
+{
+  {
+    { currentfile $L readline
+        { /lin ++ process }
+        { exit }
+      ifelse
+    } loop
+  }
+  exec false % stopped
+    { Q { (Internal) whaterror /Q true def } if endexit }
+    { exit }
+  ifelse
+}
+{ loop endpage (Done.\n) print }
+exec

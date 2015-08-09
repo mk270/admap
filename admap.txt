@@ -1,0 +1,139 @@
+ADMAP - Adventure Map Utility, v2.55, 12 Feb 1990
+        (c) Fredric Ihren, fred@nada.kth.se
+
+Admap is a language which simplifies drawing of boxes connected with straight
+lines. The original purpose was drawing of adventure game maps, but other
+uses might be possible, like flow chart drawing.
+To draw the map, you should specify the location of the "rooms", i.e. the
+boxes. Their location can be given either in fixed coordinates or relative
+each other. Then you specify their connections, "exits", i.e. the straight
+lines between them. No check is made whether your boxes or lines overlap or
+fit on the page. The layout is all up to you. Admap only simplifies the
+drawing.
+
+Syntax:
+::=	  "is defined as"
+[ ... ]	  ... is optional
+< ... >   0 or more ... (i.e ... or ... ... or ... ... ... etc or nothing)
+|	  "or"
+Words beginning with * are defined somewhere below, the rest should be written
+as they are.
+
+Primary syntax definitions:
+*nl ::= ascii character 10 or 13 or both
+*string ::= < printable ascii-character except %/()<>[]{}\| and blank >
+*text ::= < printable ascii-character except unmatched () >
+*number ::= integer or real number
+
+Map Syntax:
+*map ::= < *command *nl >
+*command ::= *roomcmd | *exitcmd | *setupcmd | *othercmd
+*roomcmd ::= *Room *roomname [ (*text) ] *place [ dash ]
+*Room ::= R | ROOM
+*roomname ::= *string
+*place ::= [ alt | normal ] [ *number sf ] *start < *dir/dir# >
+  [ alt | normal ]
+*start ::= *number *number at | *roomname
+*dir/dir# ::= *dir | *number *dir#
+*dir ::= n | nw | w | sw | s | se | e | ne
+*dir# ::= n# | nw# | w# | sw# | s# | se# | e# | ne#
+*exitcmd ::= [ EXIT ] < *roomexit > [ NS | EW ] [ dash ]
+*roomexit ::= [ alt | normal ] [ *number sf ] *start *dir/dir#
+  [ u | d ] [ oneway ] [ ? ] < *DIR | *number *DIR# | closed >
+*DIR ::= N | NW | W | SW | S | SE | E | NE
+*DIR# ::= N# | NW# | W# | SW# | S# | SE# | E# | NE#
+*setupcmd ::= WIDTH *number | HEIGHT *number | BOXWIDTH *number
+  | BOXHEIGHT *number | OFFSET *number *number | ROTATE
+*othercmd ::= NULL | NOTEXT | SETUP | FONTSIZE *number | END | *specialcmd
+*specialcmd ::= *infocmd | *alternatecmd | *textcmd | *indexcmd | *xpscmd
+*infocmd ::= TITLE *text | CREATOR *text | TIME *text
+*alternatecmd ::= ALTBOXWIDTH *number | ALTBOXHEIGHT *number
+*textcmd ::= TEXT *place [ *position ] *nl < *text *nl > ENDTEXT
+*position ::= @N | @NW | @WN | @W | @WS | @SW | @S | @SE | @ES | @E | @EN | @NE
+  | @n | @nw | @w | @sw | @s | @se | @e | @ne | @center
+*indexcmd ::= INDEX *what *place [ @nw | @sw | @se | @ne ]
+*what ::= *string | (*text)
+*xpscmd ::= XPS *code
+*code ::= postscript-code | *nl < postscript-code *nl >
+
+Command description:
+ROOM (or R)	Defines the place of a room and draws a box at that place
+		with the name of the room in the middle.
+EXIT		Draws a line indicating a passage from one room to another
+		(and another etc).
+BOXWIDTH	The x-distance from the left side of one normal box to the
+		left side of the box rightmost of that will always be set to
+		1 by the SETUP command.
+		In other words the width of a normal box plus the distance
+		between two boxes is always 1.
+		This applies to commands BOXWIDTH, BOXHEIGHT, ALTBOXWIDTH
+		and ALTBOXHEIGHT.
+		This command sets how much of this distance that should be
+		the width of a normal box.
+		(default 0.7)
+BOXHEIGHT	How high a normal box should be. 1 is same as for BOXWIDTH.
+		(default 0.5)
+		A BOXHEIGHT command will cancel a previous HEIGHT command.
+WIDTH		How many normal boxes should fit on page in x-direction.
+		(default 12)
+HEIGHT		How many normal boxes should fit on page in y-direction.
+		This will cancel a previous BOXHEIGHT command.
+OFFSET		The coordinates of the box in the lower left of paper
+		measured in normal boxes. (default 0 0)
+ROTATE		Use default coordinate system but rotated.
+NULL		Select no output (on a printer device) (no showpage).
+NOTEXT		Prohibits the printing made by the INDEX and TEXT commands.
+SETUP		Establishes the coordinate system using the setup-values
+		specified by previous setupcmds or the default values.
+FONTSIZE	Changes the fontsize in units of the startup scaling (pt)
+TITLE		Include title string in large characters above map.
+CREATOR		Include creator note in header.
+TIME		Include time note in header.
+ALTBOXWIDTH	How wide an alternate box should be. For scale see BOXWIDTH.
+ALTBOXHEIGHT	How high an alternate box should be. For scale see BOXWIDTH.
+TEXT		Print text at arbitrary position.
+                Starts up TEXT-mode, which reads and prints the next lines
+                until and line beginning with ENDTEXT is found.
+INDEX		Print a string inside a given box at specified corner.
+XPS		Execute PostScript code (of arbitrary length).
+END		Quit ADMAP parsing.
+
+Explanation of some primitives:
+alt		switches to alt(ernate) rooms
+normal		switches (back) to normal rooms
+dash		makes the exit-line or room-border of current command dashed
+oneway		makes an arrow towards the box of the latest roomexit
+closed		makes a perpendiular line on the exit-line at its
+		present location
+?		prints a questionmark at latest roomexit
+number sf	scales the font temporarily (this command) by factor number
+*position	decides where the text of this INDEX or TEXT command should be
+		The following alternatives exist (@nw is default):
+
+ 			 @NW      @N       @NE
+		         ---------------------
+		     @WN !@nw     @n     @ne ! @EN
+                         !                   !
+		      @W !@w    @center   @e ! @E
+                         !                   !
+		     @WS !@sw     @s	 @se ! @ES
+                         ---------------------
+                         @SW      @S       @SE
+
+Sequence of commands in ADMAP-file:
+   < setupcmd >
+   SETUP
+   [ titlecmd ]
+   < roomcmd | exitcmd | indexcmd | textcmd >
+
+NULL, NOTEXT, XPS, FONTSIZE or alternatecmd or infomd may be placed anywhere
+Command sequence may be repeated for a multipage output,
+
+Start command for using nondefault (a4 on ALW+) paper or screen or whatever:
+XPS
+{ % if appropriate, insert coordinate system manipulation and/or other
+  % user customization here
+  /LLX number def /URX number def /LLY number def /URY number def
+  % these numbers define the bounding box coordinates of the map area
+  % the title and information line will be just above this in Y-direction
+}

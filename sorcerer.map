@@ -1,0 +1,318 @@
+% A not yet complete map for Sorcerer. 
+% 24th January 1990, Erik Lundevall
+ROTATE
+WIDTH 18
+HEIGHT 14
+BOXWIDTH 0.7
+SETUP
+TITLE Sorcerer
+
+% The Guild
+R lobby (Lobby) 1 9 at
+INDEX (receptacle) @sw lobby
+INDEX (Orange Vial,Issue) @ne lobby
+R lib (Library) lobby e
+INDEX (scroll - meef) @ne lib
+lobby e lib w
+R stroom (Store Room) lobby w
+FONTSIZE 4
+TEXT stroom s 
+Matchbook
+Calendar
+Ochre Vial
+ENDTEXT
+FONTSIZE 6
+INDEX (<under box>) @ne stroom
+lobby w stroom e
+R aquart (Apprentice/Quarters) stroom n
+lobby nw aquart se
+R squart (Servants/Quarters) lib n
+lobby ne squart sw
+R fquart (Frobar's/Quarter) squart n
+R hquart (Helistar's/Quarter) aquart n
+INDEX (scroll - gaspar) @ne hquart
+R hall1 (Hallway) hquart e
+hall1 w hquart e
+hall1 e fquart w
+hall1 s lobby n
+R hall2 (Hallway) hall1 n
+INDEX (note) @ne hall2
+hall2 s hall1 n
+R bquart (Belboz's/Quarter) hall2 w
+INDEX (Hanging/Drawer) @sw bquart
+FONTSIZE 4
+TEXT bquart n
+Journal
+Amulet (in box)
+Key
+Infotater
+ENDTEXT
+FONTSIZE 6
+INDEX (<over box>) @ne bquart
+hall2 w bquart e
+R yquart (Your Quarter) hall2 e
+hall2 e yquart w
+R chcir (Chamber of/the Circle) hall2 n
+chcir s hall2 n
+R cellar (Cellar) lobby se
+INDEX (trunk) @sw cellar
+INDEX (scroll - aimfiz) @ne cellar
+cellar nw u lobby se 
+FONTSIZE 20
+TEXT chcir e 
+The Guild
+ENDTEXT
+FONTSIZE 6
+
+%The forest & neighborhood
+R fedge (Forest Edge) 6 9 at
+R twfor (Twisted/Forest) fedge sw
+twfor ne fedge sw oneway
+twfor n oneway fedge w EW
+R mfield (Magic/Mine Field) fedge n
+fedge n mfield s
+R meadow (Meadow) fedge e
+fedge e meadow w
+R dbridge (Drawbridge) meadow e
+meadow e dbridge w
+R ruin (Ruins) dbridge e
+dbridge e ruin w
+R rbank (River Bank) meadow n
+meadow n rbank s oneway
+rbank w meadow nw oneway NS
+R treebr (Tree Branch) twfor nw
+INDEX (boa) @sw treebr
+twfor nw treebr se d
+R snpit (Snake Pit) fedge s
+fedge s snpit n u
+R slroom (Slimy Room) snpit s
+snpit s slroom n u
+R turr (Turret) ruin e
+turr w ruin e u
+R rbed (River Bed) rbank ne
+rbank ne rbed sw dash
+R hcave (Hidden Cave) rbed ne
+FONTSIZE 4
+TEXT hcave n 
+Bat Guano
+scroll - fweep
+Amber Vial
+ENDTEXT
+FONTSIZE 6
+INDEX (<over box>) @ne hcave
+rbed ne hcave sw dash
+
+% The Fort
+R armor (Armory) turr ne
+R pargr (Parade Ground) armor n
+pargr s armor n
+R fortent (Fort/Entrance) pargr w
+fortent e pargr w
+rbank e fortent w NS
+R barr (Barracks) pargr n
+pargr n barr s
+R gunem (Gun/Emplacement) pargr e
+INDEX (cannon) @sw gunem
+INDEX (scroll - yonk) @ne gunem
+pargr e gunem w
+barr se gunem nw
+armor ne gunem sw
+
+% Crater surroundings
+R crater (Crater) slroom s
+slroom s crater n
+R windtun (Winding/Tunnel) crater s
+crater s windtun n
+R hallcarv (Hall of/Carvings) windtun s
+windtun s hallcarv n
+R echasm (Edge of Chasm) crater w
+echasm e crater w
+R bpass (Bare Pass) echasm w
+bpass e echasm w dash
+R elbow (Elbow Room) bpass w
+elbow e bpass w
+R treeroom (Tree Room) elbow n
+INDEX (tree) @sw treeroom
+INDEX (coin) @ne treeroom
+treeroom s elbow n
+R ecrat (Edge of Crater) windtun e
+ecrat nw crater se u oneway
+
+% Amusement park
+R parkent (Park/Entrance) hallcarv sw
+windtun sw parkent ne NS
+R eem (East End/of Midway) parkent w
+parkent w eem e closed
+R wem (West End/of Midway) eem w
+eem w wem e
+R casino (Casino) wem w
+INDEX (coin) @ne casino
+casino e wem w
+R hhouse (Haunted House) eem n
+hhouse s eem n
+R flume (Flume) eem s
+flume n eem s
+R arcad (Arcade) wem s
+arcad n wem s
+R roller (Roller Coaster) wem n
+roller s wem n
+
+% Underground highway
+R bend (Bend) ecrat ne
+ecrat ne bend sw
+R highway (Highway) bend e
+bend e highway w
+R toll (Toll Gate) highway e
+INDEX (gnome) @sw toll
+highway e toll w
+R outstore (Outside/Store) toll e
+toll e closed outstore w
+R instore (Store) outstore s
+INDEX (waxer) @ne instore
+outstore s instore n
+R ehigh (End of Highway) outstore e
+outstore e ehigh w
+R hut (Stone Hut) ehigh e
+ehigh e hut w
+R enthall (Entrance/Hall) ehigh n
+ehigh n enthall s
+ehigh ne u enthall e NS
+R outmaze (Outside/Glass Maze) enthall n
+enthall n outmaze s
+R dungeon (Dungeon) highway n
+highway n dungeon s oneway
+highway nw u dungeon w NS
+ruin s dungeon n u
+R torture (Torture/Chamber) dungeon e
+INDEX (Indigo Vial) @ne torture
+dungeon e torture w
+R bpit (Pit of Bones) torture n
+torture n bpit s
+bpit sw dungeon ne
+bpit nw u oneway hcave s NS
+R maze (Glass Maze) outmaze e dash
+outmaze e maze w
+R hollow (Hollow) maze e
+INDEX (scroll - swanzo) @ne hollow
+maze e hollow w
+
+% Glass maze, way to Hollow
+R tm131 ( ) 0 22 at
+R tm121 ( ) tm131 n
+tm131 n tm121 s
+R tm111 ( ) tm121 n
+R tm132 (down) tm131 e
+tm131 e tm132 w
+R tm122 ( ) tm121 e
+tm121 e tm122 w
+R tm112 (down) tm111 e
+tm111 e tm112 w
+R tm113 (down) tm112 e
+R tm123 ( ) tm122 e
+tm113 s tm123 n
+R tm133 ( ) tm132 e
+tm133 w tm132 e
+R hollow1 (Hollow) tm123 e dash
+hollow1 w tm123 e
+
+R tm231 (down) 6 22 at
+R tm221 ( ) tm231 n
+R tm211 (down) tm221 n
+tm211 s tm221 n
+R out1 (Outside/Glass Maze) tm221 w dash
+tm221 w out1 e
+R tm232 (up) tm231 e
+tm232 w tm231 e
+R tm222 ( ) tm221 e
+tm222 s tm232 n
+R tm212 (up) tm211 e
+tm211 e tm212 w
+tm212 s tm222 n
+R tm213 (up/down) tm212 e
+R tm223 ( ) tm222 e
+R tm233 ( ) tm232 e
+tm232 e tm233 w
+tm233 n tm223 s
+
+R tm331 (up) 10 22 at
+R tm321 ( ) tm331 n
+R tm311 (up) tm321 n
+tm311 s tm321 n
+R tm312 ( ) tm311 e
+R tm322 ( ) tm321 e
+tm321 e tm322 w
+tm322 n tm312 s
+R tm332 ( ) tm331 e
+tm331 e tm332 w
+R tm333 ( ) tm332 e
+tm332 e tm333 w
+R tm323 ( ) tm322 e
+tm333 n tm323 s
+R tm313 (up) tm312 e
+tm313 s tm323 n
+FONTSIZE 20
+TEXT tm323 e 
+Glass Maze, 
+going to Hollow
+ENDTEXT
+FONTSIZE 6
+
+% Glass maze, way from hollow
+R fm131 (down) 0 18 at
+R fm121 ( ) fm131 n
+fm131 n fm121 s
+R fm111 (down) fm121 n
+fm121 n fm111 s
+R fm112 (down) fm111 e
+R fm122 ( ) fm121 e
+R fm132 ( ) fm131 e
+fm132 n fm122 s
+R fm133 (down) fm132 e
+fm132 e fm133 w
+fm132 n fm122 s
+R fm123 ( ) fm122 e
+fm122 e fm123 w
+R hollow2 (Hollow) fm123 e dash
+hollow2 w fm123 e
+R fm113 ( ) fm112 e
+fm112 e fm113 w
+
+R fm231 (up/down) 6 18 at
+R fm221 (down) fm231 n
+R out2 (Outside/Glass Maze) fm221 w dash
+out2 e fm221 w
+R fm211 (up) fm221 n
+R fm212 (up) fm211 e
+fm211 e fm212 w
+R fm222 ( ) fm221 e
+fm222 n fm212 s
+R fm232 ( ) fm231 e
+R fm233 (up/down) fm232 e
+fm232 e fm233 w
+R fm223 ( ) fm222 e
+fm222 e fm223 w
+R fm213 (down) fm212 e
+fm213 s fm223 n
+
+R fm331 (up) 10 18 at
+R fm321 (up) fm331 n
+R fm311 ( ) fm321 n
+fm321 n fm311 s
+R fm312 ( ) fm311 e
+R fm322 ( ) fm321 e
+fm321 e fm322 w
+fm322 n fm312 s
+R fm332 ( ) fm331 e
+fm332 w fm331 e
+R fm333 (up) fm332 e
+fm332 e fm333 w
+R fm323 ( ) fm322 e
+R fm313 (up) fm312 e
+fm312 e fm313 w
+fm313 s fm323 n
+FONTSIZE 20
+TEXT fm323 e 
+Glass Maze, 
+going from Hollow
+ENDTEXT
+FONTSIZE 6

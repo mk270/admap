@@ -1,0 +1,550 @@
+Aboveground At_End_Of_Road "At End Of Road"
+        w_to At_Hill_In_Road
+        u_to At_Hill_In_Road
+        e_to Inside_Building
+        d_to In_A_Valley
+        s_to In_A_Valley
+        n_to In_Forest_1
+        in_to Inside_Building
+Aboveground At_Hill_In_Road "At Hill In Road"
+        e_to At_End_Of_Road
+        n_to At_End_Of_Road
+        d_to At_End_Of_Road
+        s_to In_Forest_1
+Aboveground Inside_Building "Inside Building"
+        w_to At_End_Of_Road
+        out_to At_End_Of_Road
+Aboveground In_Forest_1 "In Forest"
+        e_to In_A_Valley
+        d_to In_A_Valley
+        n_to In_Forest_1
+        w_to In_Forest_1
+        s_to In_Forest_1
+Aboveground In_Forest_2 "In Forest"
+        n_to At_End_Of_Road
+        e_to In_A_Valley
+        w_to In_A_Valley
+        d_to In_A_Valley
+        s_to In_Forest_1
+Aboveground In_A_Valley "In A Valley"
+        n_to At_End_Of_Road
+        e_to In_Forest_1
+        w_to In_Forest_1
+        u_to In_Forest_1
+        s_to At_Slit_In_Streambed
+        d_to At_Slit_In_Streambed
+Aboveground At_Slit_In_Streambed "At Slit In Streambed"
+        n_to In_A_Valley
+        e_to In_Forest_1
+        w_to In_Forest_1
+        s_to Outside_Grate
+Aboveground Outside_Grate "Outside Grate"
+        e_to In_Forest_1
+        w_to In_Forest_1
+        s_to In_Forest_1
+        n_to At_Slit_In_Streambed
+Room    Below_The_Grate "Below the Grate"
+        w_to In_Cobble_Crawl
+        u_to Grate
+Room    In_Cobble_Crawl "In Cobble Crawl"
+        e_to Below_The_Grate
+        w_to In_Debris_Room
+Room    In_Debris_Room "In Debris Room"
+        e_to In_Cobble_Crawl
+        u_to In_Awkward_Sloping_E_W_Canyon
+        w_to In_Awkward_Sloping_E_W_Canyon
+Room    In_Awkward_Sloping_E_W_Canyon "Sloping E/W Canyon"
+        d_to In_Debris_Room
+        e_to In_Debris_Room
+        u_to In_Bird_Chamber
+        w_to In_Bird_Chamber
+Room    In_Bird_Chamber "Orange River Chamber"
+        e_to In_Awkward_Sloping_E_W_Canyon
+        w_to At_Top_Of_Small_Pit
+Room    At_Top_Of_Small_Pit "At Top of Small Pit"
+        e_to In_Bird_Chamber
+Room    In_Hall_Of_Mists "In Hall of Mists"
+        s_to In_Nugget_Of_Gold_Room
+        w_to On_East_Bank_Of_Fissure
+        d_to In_Hall_Of_Mt_King
+        n_to In_Hall_Of_Mt_King
+Room    In_Nugget_Of_Gold_Room "Low Room"
+        n_to In_Hall_Of_Mists
+FissureRoom On_East_Bank_Of_Fissure "On East Bank of Fissure"
+        e_to In_Hall_Of_Mists
+FissureRoom West_Side_Of_Fissure "West Side of Fissure"
+        w_to At_West_End_Of_Hall_Of_Mists
+        n_to At_West_End_Of_Hall_Of_Mists
+Room    At_West_End_Of_Hall_Of_Mists "At West End of Hall of Mists"
+        s_to Alike_Maze_1
+        u_to Alike_Maze_1
+        e_to West_Side_Of_Fissure
+        w_to At_East_End_Of_Long_Hall
+        n_to West_Side_Of_Fissure
+Room    At_East_End_Of_Long_Hall "At East End of Long Hall"
+        e_to At_West_End_Of_Hall_Of_Mists
+        u_to At_West_End_Of_Hall_Of_Mists
+        w_to At_West_End_Of_Long_Hall
+        n_to Crossover
+        d_to Crossover
+Room    At_West_End_Of_Long_Hall "At West End of Long Hall"
+        e_to At_East_End_Of_Long_Hall
+        s_to Different_Maze_1
+        n_to Crossover
+Room    Crossover "N/S and E/W Crossover"
+        w_to At_East_End_Of_Long_Hall
+        n_to Dead_End_7
+        e_to In_West_Side_Chamber
+        s_to At_West_End_Of_Long_Hall
+DeadendRoom Dead_End_7
+        s_to Crossover
+        out_to Crossover
+Room    In_Hall_Of_Mt_King "Hall of the Mountain King"
+        u_to In_Hall_Of_Mists
+        e_to In_Hall_Of_Mists
+        n_to Low_N_S_Passage
+        s_to In_South_Side_Chamber
+        w_to In_West_Side_Chamber
+        sw_to In_Secret_E_W_Canyon
+Room    Low_N_S_Passage "Low N/S Passage"
+        s_to In_Hall_Of_Mt_King
+        d_to In_Dirty_Passage
+        n_to At_Y2
+Room    In_South_Side_Chamber "In South Side Chamber"
+        n_to In_Hall_Of_Mt_King
+Room    In_West_Side_Chamber "In West Side Chamber"
+        w_to Crossover
+        u_to Crossover
+        e_to In_Hall_Of_Mt_King
+Room    At_Y2 "At ~Y2~"
+        s_to Low_N_S_Passage
+        e_to Jumble_Of_Rock
+        w_to At_Window_On_Pit_1
+Room    Jumble_Of_Rock "Jumble of Rock"
+        d_to At_Y2
+        u_to In_Hall_Of_Mists
+Room    At_Window_On_Pit_1 "At Window on Pit"
+        e_to At_Y2
+Room    In_Dirty_Passage "Dirty Passage"
+        e_to On_Brink_Of_Pit
+        u_to Low_N_S_Passage
+        w_to In_Dusty_Rock_Room
+Room    On_Brink_Of_Pit "Brink of Pit"
+        w_to In_Dirty_Passage
+        d_to In_Pit
+        in_to In_Pit
+Room    In_Pit "In Pit"
+        u_to On_Brink_Of_Pit
+Room    In_Dusty_Rock_Room "In Dusty Rock Room"
+        e_to In_Dirty_Passage
+        d_to At_Complex_Junction
+MazeRoom Alike_Maze_1
+        u_to At_West_End_Of_Hall_Of_Mists
+        n_to Alike_Maze_1
+        e_to Alike_Maze_2
+        s_to Alike_Maze_4
+        w_to Alike_Maze_11
+MazeRoom Alike_Maze_2
+        w_to Alike_Maze_1
+        s_to Alike_Maze_3
+        e_to Alike_Maze_4
+MazeRoom Alike_Maze_3
+        e_to Alike_Maze_2
+        d_to Dead_End_3
+        s_to Alike_Maze_6
+        n_to Dead_End_13
+MazeRoom Alike_Maze_4
+        w_to Alike_Maze_1
+        n_to Alike_Maze_2
+        e_to Dead_End_1
+        s_to Dead_End_2
+        u_to Alike_Maze_14
+        d_to Alike_Maze_14
+MazeRoom Alike_Maze_5
+        e_to Alike_Maze_6
+        w_to Alike_Maze_7
+MazeRoom Alike_Maze_6
+        e_to Alike_Maze_3
+        w_to Alike_Maze_5
+        d_to Alike_Maze_7
+        s_to Alike_Maze_8
+DeadendRoom Dead_End_1
+        w_to Alike_Maze_4
+        out_to Alike_Maze_4
+DeadendRoom Dead_End_2
+        w_to Alike_Maze_4
+        out_to Alike_Maze_4
+DeadendRoom Dead_End_3
+        u_to Alike_Maze_3
+        out_to Alike_Maze_3
+MazeRoom Alike_Maze_7
+        w_to Alike_Maze_5
+        u_to Alike_Maze_6
+        e_to Alike_Maze_8
+        s_to Alike_Maze_9
+MazeRoom Alike_Maze_8
+        w_to Alike_Maze_6
+        e_to Alike_Maze_7
+        s_to Alike_Maze_8
+        u_to Alike_Maze_9
+        n_to Alike_Maze_10
+        d_to Dead_End_12
+MazeRoom Alike_Maze_9
+        w_to Alike_Maze_7
+        n_to Alike_Maze_8
+        s_to Dead_End_4
+DeadendRoom Dead_End_4
+        w_to Alike_Maze_9
+        out_to Alike_Maze_9
+MazeRoom Alike_Maze_10
+        w_to Alike_Maze_8
+        n_to Alike_Maze_10
+        d_to Dead_End_5
+        e_to At_Brink_Of_Pit
+DeadendRoom Dead_End_5
+        u_to Alike_Maze_10
+        out_to Alike_Maze_10
+Room    At_Brink_Of_Pit "At Brink of Pit"
+        d_to In_Bird_Chamber
+        w_to Alike_Maze_10
+        s_to Dead_End_6
+        n_to Alike_Maze_12
+        e_to Alike_Maze_13
+DeadendRoom Dead_End_6
+        e_to At_Brink_Of_Pit
+        out_to At_Brink_Of_Pit
+Room    At_Complex_Junction "At Complex Junction"
+        u_to In_Dusty_Rock_Room
+        w_to In_Bedquilt
+        n_to In_Shell_Room
+        e_to In_Anteroom
+Room    In_Bedquilt "Bedquilt"
+        e_to At_Complex_Junction
+        w_to In_Swiss_Cheese_Room
+        s_to In_Slab_Room
+        u_to In_Dusty_Rock_Room
+        n_to At_Junction_Of_Three
+        d_to In_Anteroom
+Room    In_Swiss_Cheese_Room "In Swiss Cheese Room"
+        w_to At_East_End_Of_Twopit_Room
+        s_to In_Tall_E_W_Canyon
+        ne_to In_Bedquilt
+        nw_to In_Oriental_Room
+        e_to In_Soft_Room
+Room    At_West_End_Of_Twopit_Room "At West End of Twopit Room"
+        e_to At_East_End_Of_Twopit_Room
+        w_to In_Slab_Room
+        d_to In_West_Pit
+Room    In_West_Pit "In West Pit"
+        u_to At_West_End_Of_Twopit_Room
+Room    At_East_End_Of_Twopit_Room "At East End of Twopit Room"
+        e_to In_Swiss_Cheese_Room
+        w_to At_West_End_Of_Twopit_Room
+        d_to In_East_Pit
+Room    In_East_Pit "In East Pit"
+        u_to At_East_End_Of_Twopit_Room
+Room    In_Slab_Room "Slab Room"
+        s_to At_West_End_Of_Twopit_Room
+        u_to In_Secret_N_S_Canyon_0
+        n_to In_Bedquilt
+Room    In_Secret_N_S_Canyon_0 "Secret N/S Canyon"
+        d_to In_Slab_Room
+        s_to In_Secret_Canyon
+        n_to In_Mirror_Canyon
+Room    In_Secret_N_S_Canyon_1 "Secret N/S Canyon"
+        n_to At_Junction_Of_Three
+        d_to In_Bedquilt
+        s_to Atop_Stalactite
+Room    At_Junction_Of_Three "Junction of Three Secret Canyons"
+        se_to In_Bedquilt
+        s_to In_Secret_N_S_Canyon_1
+        n_to At_Window_On_Pit_2
+Room    In_Large_Low_Room "Large Low Room"
+        sw_to In_Sloping_Corridor
+        se_to In_Oriental_Room
+        n_to Dead_End_Crawl
+Room    Dead_End_Crawl "Dead End Crawl"
+        s_to In_Large_Low_Room
+        out_to In_Large_Low_Room
+Room    In_Secret_E_W_Canyon "Secret E/W Canyon Above Tight Canyon"
+        e_to In_Hall_Of_Mt_King
+        w_to In_Secret_Canyon
+        d_to In_N_S_Canyon
+Room    In_N_S_Canyon "N/S Canyon"
+        s_to Canyon_Dead_End
+        n_to In_Tall_E_W_Canyon
+Room    Canyon_Dead_End "Canyon Dead End"
+        n_to In_N_S_Canyon
+Room    In_Tall_E_W_Canyon "In Tall E/W Canyon"
+        e_to In_N_S_Canyon
+        w_to Dead_End_8
+        n_to In_Swiss_Cheese_Room
+Room    Atop_Stalactite "Atop Stalactite"
+        n_to In_Secret_N_S_Canyon_1
+        d_to Alike_Maze_4
+Room    In_Secret_Canyon "Secret Canyon"
+        e_to In_Secret_E_W_Canyon
+        n_to In_Secret_N_S_Canyon_0
+DeadendRoom Dead_End_8
+        s_to In_Tall_E_W_Canyon
+        out_to In_Tall_E_W_Canyon
+MazeRoom Alike_Maze_11
+        n_to Alike_Maze_1
+        w_to Alike_Maze_11
+        s_to Alike_Maze_11
+        e_to Dead_End_9
+        ne_to Dead_End_10
+DeadendRoom Dead_End_9
+        w_to Alike_Maze_11
+        out_to Alike_Maze_11
+DeadendRoom Dead_End_10
+        s_to Alike_Maze_3
+        out_to Alike_Maze_3
+MazeRoom Alike_Maze_12
+        s_to At_Brink_Of_Pit
+        e_to Alike_Maze_13
+        w_to Dead_End_11
+MazeRoom Alike_Maze_13
+        n_to At_Brink_Of_Pit
+        w_to Alike_Maze_12
+        nw_to Dead_End_13
+DeadendRoom Dead_End_11
+        e_to Alike_Maze_12
+        out_to Alike_Maze_12
+DeadendRoom Dead_End_12
+        u_to Alike_Maze_8
+        out_to Alike_Maze_8
+MazeRoom Alike_Maze_14
+        u_to Alike_Maze_4
+        d_to Alike_Maze_4
+DeadendRoom Dead_End_13
+        se_to Alike_Maze_13
+        out_to Alike_Maze_13
+Room    In_Narrow_Corridor "In Narrow Corridor"
+        d_to In_West_Pit
+        w_to In_Giant_Room
+        e_to In_West_Pit
+Room    At_Steep_Incline "Steep Incline Above Large Room"
+        n_to In_Cavern_With_Waterfall
+        d_to In_Large_Low_Room
+Room    In_Giant_Room "Giant Room"
+        s_to In_Narrow_Corridor
+        e_to At_Recent_Cave_In
+        n_to In_Immense_N_S_Passage
+Room    At_Recent_Cave_In "Recent Cave-in"
+        s_to In_Giant_Room
+Room    In_Immense_N_S_Passage "Immense N/S Passage"
+        s_to In_Giant_Room
+        n_to In_Cavern_With_Waterfall
+Room    In_Cavern_With_Waterfall "In Cavern With Waterfall"
+        s_to In_Immense_N_S_Passage
+        w_to At_Steep_Incline
+Room    In_Soft_Room "In Soft Room"
+        w_to In_Swiss_Cheese_Room
+Room    In_Oriental_Room "Oriental Room"
+        w_to In_Large_Low_Room
+        se_to In_Swiss_Cheese_Room
+        u_to In_Misty_Cavern
+        n_to In_Misty_Cavern
+Room    In_Misty_Cavern "Misty Cavern"
+        s_to In_Oriental_Room
+        w_to In_Alcove
+Room    In_Alcove "Alcove"
+        nw_to In_Misty_Cavern
+        e_to In_Plover_Room
+Room    In_Plover_Room "Plover Room"
+        ne_to In_Dark_Room
+        w_to In_Alcove
+Room    In_Dark_Room "The Dark Room"
+        s_to In_Plover_Room
+Room    In_Arched_Hall "Arched Hall"
+        d_to In_Shell_Room
+Room    In_Shell_Room "Shell Room"
+        u_to In_Arched_Hall
+        d_to In_Ragged_Corridor
+        s_to At_Complex_Junction
+Room    In_Ragged_Corridor "Ragged Corridor"
+        u_to In_Shell_Room
+        d_to In_A_Cul_De_Sac
+Room    In_A_Cul_De_Sac "Cul-de-Sac"
+        u_to In_Ragged_Corridor
+        out_to In_Ragged_Corridor
+Room    In_Anteroom "In Anteroom"
+        u_to At_Complex_Junction
+        w_to In_Bedquilt
+        e_to At_Witts_End
+Room    At_Witts_End "At Witt's End"
+        s_to In_Anteroom
+Room    In_Mirror_Canyon "In Mirror Canyon"
+        s_to In_Secret_N_S_Canyon_0
+        n_to At_Reservoir
+Room    At_Window_On_Pit_2 "At Window on Pit"
+        w_to At_Junction_Of_Three
+Room    At_Reservoir "At Reservoir"
+        s_to In_Mirror_Canyon
+        out_to In_Mirror_Canyon
+Room    In_Sloping_Corridor "Sloping Corridor"
+        d_to In_Large_Low_Room
+        u_to On_Sw_Side_Of_Chasm
+Room    On_Sw_Side_Of_Chasm "On SW Side of Chasm"
+        ne_to On_Ne_Side_Of_Chasm
+        sw_to In_Sloping_Corridor
+        d_to In_Sloping_Corridor
+Room    On_Ne_Side_Of_Chasm "On NE Side of Chasm"
+        sw_to On_Sw_Side_Of_Chasm
+        ne_to In_Corridor
+Room    In_Corridor "In Corridor"
+        w_to On_Ne_Side_Of_Chasm
+        e_to At_Fork_In_Path
+Room    At_Fork_In_Path "At Fork in Path"
+        w_to In_Corridor
+        ne_to At_Junction_With_Warm_Walls
+        se_to In_Limestone_Passage
+        d_to In_Limestone_Passage
+Room    At_Junction_With_Warm_Walls "At Junction With Warm Walls"
+        s_to At_Fork_In_Path
+        n_to At_Breath_Taking_View
+        e_to In_Chamber_Of_Boulders
+Room    At_Breath_Taking_View "At Breath-Taking View"
+        s_to At_Junction_With_Warm_Walls
+        out_to At_Junction_With_Warm_Walls
+Room    In_Chamber_Of_Boulders "In Chamber of Boulders"
+        w_to At_Junction_With_Warm_Walls
+        out_to At_Junction_With_Warm_Walls
+Room    In_Limestone_Passage "In Limestone Passage"
+        n_to At_Fork_In_Path
+        u_to At_Fork_In_Path
+        s_to In_Front_Of_Barren_Room
+        d_to In_Front_Of_Barren_Room
+Room    In_Front_Of_Barren_Room "In Front of Barren Room"
+        w_to In_Limestone_Passage
+        u_to In_Limestone_Passage
+        e_to In_Barren_Room
+        in_to In_Barren_Room
+Room    In_Barren_Room "In Barren Room"
+        w_to In_Front_Of_Barren_Room
+        out_to In_Front_Of_Barren_Room
+DiffmazeRoom Different_Maze_1
+        s_to Different_Maze_3
+        sw_to Different_Maze_4
+        ne_to Different_Maze_5
+        se_to Different_Maze_6
+        u_to Different_Maze_7
+        nw_to Different_Maze_8
+        e_to Different_Maze_9
+        w_to Different_Maze_10
+        n_to Different_Maze_11
+        d_to At_West_End_Of_Long_Hall
+DiffmazeRoom Different_Maze_2
+        sw_to Different_Maze_3
+        n_to Different_Maze_4
+        e_to Different_Maze_5
+        nw_to Different_Maze_6
+        se_to Different_Maze_7
+        ne_to Different_Maze_8
+        w_to Different_Maze_9
+        d_to Different_Maze_10
+        u_to Different_Maze_11
+        s_to Dead_End_14
+DiffmazeRoom Different_Maze_3
+        w_to Different_Maze_1
+        se_to Different_Maze_4
+        nw_to Different_Maze_5
+        sw_to Different_Maze_6
+        ne_to Different_Maze_7
+        u_to Different_Maze_8
+        d_to Different_Maze_9
+        n_to Different_Maze_10
+        s_to Different_Maze_11
+        e_to Different_Maze_2
+DiffmazeRoom Different_Maze_4
+        nw_to Different_Maze_1
+        u_to Different_Maze_3
+        n_to Different_Maze_5
+        s_to Different_Maze_6
+        w_to Different_Maze_7
+        sw_to Different_Maze_8
+        ne_to Different_Maze_9
+        e_to Different_Maze_10
+        d_to Different_Maze_11
+        se_to Different_Maze_2
+DiffmazeRoom Different_Maze_5
+        u_to Different_Maze_1
+        d_to Different_Maze_3
+        w_to Different_Maze_4
+        ne_to Different_Maze_6
+        sw_to Different_Maze_7
+        e_to Different_Maze_8
+        n_to Different_Maze_9
+        nw_to Different_Maze_10
+        se_to Different_Maze_11
+        s_to Different_Maze_2
+DiffmazeRoom Different_Maze_6
+        ne_to Different_Maze_1
+        n_to Different_Maze_3
+        nw_to Different_Maze_4
+        se_to Different_Maze_5
+        e_to Different_Maze_7
+        d_to Different_Maze_8
+        s_to Different_Maze_9
+        u_to Different_Maze_10
+        w_to Different_Maze_11
+        sw_to Different_Maze_2
+DiffmazeRoom Different_Maze_7
+        n_to Different_Maze_1
+        se_to Different_Maze_3
+        d_to Different_Maze_4
+        s_to Different_Maze_5
+        e_to Different_Maze_6
+        w_to Different_Maze_8
+        sw_to Different_Maze_9
+        ne_to Different_Maze_10
+        nw_to Different_Maze_11
+        u_to Different_Maze_2
+DiffmazeRoom Different_Maze_8
+        e_to Different_Maze_1
+        w_to Different_Maze_3
+        u_to Different_Maze_4
+        sw_to Different_Maze_5
+        d_to Different_Maze_6
+        s_to Different_Maze_7
+        nw_to Different_Maze_9
+        se_to Different_Maze_10
+        ne_to Different_Maze_11
+        n_to Different_Maze_2
+DiffmazeRoom Different_Maze_9
+        se_to Different_Maze_1
+        ne_to Different_Maze_3
+        s_to Different_Maze_4
+        d_to Different_Maze_5
+        u_to Different_Maze_6
+        nw_to Different_Maze_7
+        n_to Different_Maze_8
+        sw_to Different_Maze_10
+        e_to Different_Maze_11
+        w_to Different_Maze_2
+DiffmazeRoom Different_Maze_10
+        d_to Different_Maze_1
+        e_to Different_Maze_3
+        ne_to Different_Maze_4
+        u_to Different_Maze_5
+        w_to Different_Maze_6
+        n_to Different_Maze_7
+        s_to Different_Maze_8
+        se_to Different_Maze_9
+        sw_to Different_Maze_11
+        nw_to Different_Maze_2
+DiffmazeRoom Different_Maze_11
+        sw_to Different_Maze_1
+        nw_to Different_Maze_3
+        e_to Different_Maze_4
+        w_to Different_Maze_5
+        n_to Different_Maze_6
+        d_to Different_Maze_7
+        se_to Different_Maze_8
+        u_to Different_Maze_9
+        s_to Different_Maze_10
+        ne_to Different_Maze_2
+DeadendRoom Dead_End_14
+        n_to Different_Maze_2
+        out_to Different_Maze_2

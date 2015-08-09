@@ -1,0 +1,234 @@
+SETUP
+CREATOR Martin Keegan
+TIME [Year 2013]
+TITLE Colossal Cave
+
+R llroom (Large Low Room) 3 15 at
+R decrawl (Dead End Crawl) llroom n
+R oriental (Oriental Room) llroom se s
+R misty (Misty Cavern) llroom ne
+R alcove (Alcove) misty n
+
+R plover (Plover Room) alcove e
+R dark (Dark Room) plover n
+
+R swiss (Swiss Cheese) oriental se
+R twopite (Twopit E) swiss w
+R twopitw (Twopit W) twopite w
+R slab (Slab Room) twopitw nw
+R tewcanyon (Tall E/W Canyon) swiss s s s
+R soft (Soft Room) swiss e
+R bedquilt (Bedquilt) swiss ne n
+R complex (Complex Junction) bedquilt e e
+R shell (Shell Room) complex n
+R anteroom (Anteroom) complex se
+R arched (Arched Hall) shell w
+R ragged (Ragged Corridor) shell e
+R culdesac (Cul de Sac) ragged e
+R dusty (Dusty Rock Room) complex s s
+R witts (Witts End) anteroom e
+
+R dirty (Dirty Passage) dusty e
+R onbrinkofpit (On Brink of Pit) dirty e
+
+
+R belowgrate (Below Grate) 11 2 at
+R cobblecrawl (Cobble Crawl) belowgrate w
+R debrisroom (Debris Room) cobblecrawl w
+R awkslope (Awkward Slope) debrisroom w
+R birdcmr (Bird Chamber) awkslope w
+R topsmallpit (Top of Small Pit) birdcmr w
+R misthall (Hall of Mists) topsmallpit ne ne e e
+R lowroom (Low Room) misthall s
+R fissuree (East Fissure) misthall w
+R fissurew (West Fissure) fissuree w w
+R wmisthall (W Hall of Mists) fissurew w
+R mtking (Mt King) misthall nw nw
+R lownspass (Low NS Pass) mtking n
+R alikemaze1 (Alike Maze 1) wmisthall s
+R longhalle (E Long Hall) wmisthall w
+R longhallw (W Long Hall) longhalle w
+R crossover (Crossover) mtking w w
+R diffmaze1 (Diff Maze 1) longhallw s
+
+belowgrate w cobblecrawl e
+cobblecrawl w debrisroom e
+debrisroom w d awkslope e u
+awkslope w birdcmr e
+birdcmr w topsmallpit e
+topsmallpit ne d misthall sw u
+misthall s lowroom n
+misthall w fissuree e
+fissuree w fissurew e
+fissurew w wmisthall e
+misthall n d mtking e u
+wmisthall w d longhalle e u
+wmisthall s u alikemaze1 n oneway
+longhalle w longhallw e
+longhalle n d crossover w
+longhallw s diffmaze1 n oneway
+longhallw n crossover s
+
+R deadend7 (Dead End) crossover n
+crossover n deadend7 s
+
+R wschamber (W Chamber) mtking w
+R sschamber (S Chamber) mtking s
+R secewcanyon (Secret EW Canyon) mtking sw w w w w
+R dragon (Dragon Canyon) secewcanyon w w
+crossover e wschamber w u
+wschamber e mtking w
+sschamber n mtking s
+mtking sw secewcanyon e
+
+R y2 (Y2) lownspass n
+R jumblerock (Jumble of Rock) y2 se
+R windowpit1 (Window Pit 1) y2 w
+
+y2 e jumblerock n d
+jumblerock s u misthall ne oneway
+y2 s lownspass n
+y2 w windowpit1 e
+
+mtking n lownspass s
+
+llroom n decrawl s
+
+llroom se oriental w
+oriental n misty s
+misty w alcove nw
+oriental se swiss nw
+
+alcove e plover w
+plover ne dark s
+
+swiss w twopite e
+twopite w twopitw e
+slab s twopitw w
+swiss e soft w
+swiss s tewcanyon n
+swiss ne bedquilt w
+bedquilt e complex w
+shell s complex n
+shell w u arched e d
+shell e d ragged w u
+ragged e d culdesac w u
+
+complex s u dusty n d
+complex e anteroom n u
+anteroom e witts w
+anteroom w bedquilt se d
+
+dusty e dirty w
+dirty e onbrinkofpit w
+dirty sw u lownspass ne d
+
+R inpit (In Pit) onbrinkofpit e
+onbrinkofpit e d inpit w u
+
+R atbrinkofpit (At Brink Of Pit) birdcmr s
+atbrinkofpit n d birdcmr s oneway
+
+%% TODO: bedquilt -> slab, dusty, junctofthree etc
+%% slab -> secret ns canyon 0
+
+slab n bedquilt s
+
+R westpit (West Pit) twopitw s
+R eastpit (East Pit) twopite s
+R narrowcorr (Narrow Corridor) westpit sw s
+
+twopitw s d westpit n u
+twopite s d eastpit n u
+westpit w u narrowcorr e
+
+R sloping (Sloping Corridor) llroom nw w
+R swchasm (SW Chasm) sloping ne
+R nechasm (NE Chasm) swchasm ne
+R incorridor (Corridor) nechasm ne e
+R fork (Fork in Path) incorridor e e
+R warmjunction (Warm Junction) fork ne
+R limestone (Limestone Psg) fork se
+R barrenfront (Front Barren) limestone se
+R barren (Barren Room) barrenfront e
+R bview (Breathtaking View) warmjunction n
+R bouldercmr (Chamber of Boulders) warmjunction e
+
+llroom sw sloping se d
+
+swchasm sw d sloping ne u
+swchasm ne nechasm sw
+nechasm ne incorridor w
+incorridor e fork w
+fork ne warmjunction s
+fork se d limestone n u
+limestone s d barrenfront w u
+barrenfront e barren w
+
+bview s warmjunction n
+bouldercmr w warmjunction e
+
+R secnsc1 (Secret NS Canyon) bedquilt w
+R junction3 (Junction of 3) secnsc1 n
+R windowpit2 (Window Pit 2) junction3 ne
+R atopstalac (Atop Stalactite) secnsc1 s
+
+atopstalac n secnsc1 s
+secnsc1 n junction3 s
+junction3 n windowpit2 w
+junction3 se bedquilt n
+bedquilt n u secnsc1 ne d
+
+R giantroom (Giant Room) narrowcorr nw
+R cavein (Recent Cave-in) giantroom ne
+R immense (Immense Psg) giantroom n
+R waterfall (Waterfall) immense n
+R steepincline (Steep Incline) waterfall sw
+
+narrowcorr w giantroom s
+giantroom e cavein s
+giantroom n immense s
+immense n waterfall s
+waterfall w steepincline n
+steepincline nw d llroom w oneway
+
+R secnscan0 (Secret NS Canyon) dragon n
+R mirror (Mirror Canyon) secnscan0 n
+R reservoir (Reservoir) mirror n
+
+dragon n secnscan0 s
+secnscan0 n mirror s
+mirror n reservoir s
+dragon e secewcanyon w
+
+slab sw u secnscan0 ne d
+
+R deadend8 (Dead End 8) tewcanyon nw
+R nscanyon (NS Canyon) tewcanyon s
+R canyonde (Canyon Dead End) nscanyon s
+
+deadend8 s tewcanyon w
+nscanyon n tewcanyon s
+nscanyon s canyonde n
+secewcanyon n d nscanyon w oneway
+
+R endofroad (End of Road) 10 10 at
+R building (Building) endofroad e
+R hill (Hill) endofroad w
+R valley (Valley) endofroad s
+R slit (Slit) valley s
+R outsidegrate (Outside Grate) slit se
+R forest1 (Forest) endofroad n
+R forest2 (Forest) endofroad nw
+
+endofroad e building w
+endofroad s valley n
+endofroad w hill e
+endofroad n forest1 s
+forest1 w forest2 e
+valley s slit n
+slit s outsidegrate n
+outsidegrate s d belowgrate n u
+
+
+% end

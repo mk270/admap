@@ -1,0 +1,53 @@
+
+
+! ------------------------------------------------------------------------------
+
+Room    In_Bedquilt "Bedquilt"
+  with  name 'bedquilt',
+        description
+            "You are in bedquilt, a long east/west passage with holes everywhere.
+             To explore at random select north, south, up, or down.",
+        e_to At_Complex_Junction,
+        w_to In_Swiss_Cheese_Room,
+        s_to In_Slab_Room,
+        u_to In_Dusty_Rock_Room,
+        n_to At_Junction_Of_Three,
+        d_to In_Anteroom,
+        before [ destiny;
+          Go:
+            if (noun == s_obj or d_obj && random(100) <= 80) destiny = 1;
+            if (noun == u_obj && random(100) <= 80)          destiny = 1;
+            if (noun == u_obj && random(100) <= 50) destiny = In_Secret_N_S_Canyon_1;
+            if (noun == n_obj && random(100) <= 60)          destiny = 1;
+            if (noun == n_obj && random(100) <= 75) destiny = In_Large_Low_Room;
+            if (destiny == 1)
+                "You have crawled around in some little holes and wound up back
+                 in the main passage.";
+            if (destiny == 0) rfalse;
+            PlayerTo(destiny);
+            rtrue;
+        ];
+
+! ------------------------------------------------------------------------------
+!   The Twopit Room area
+! ------------------------------------------------------------------------------
+!   Possible heights for the plant:
+! ------------------------------------------------------------------------------
+
+! ------------------------------------------------------------------------------
+
+! ------------------------------------------------------------------------------
+
+Room    In_Secret_E_W_Canyon "Secret E/W Canyon Above Tight Canyon"
+  with  name 'secret' 'e/w' 'canyon' 'above' 'tight' 'canyon',
+        description
+            "You are in a secret canyon which here runs E/W.
+             It crosses over a very tight canyon 15 feet below.
+             If you go down you may not be able to get back up.",
+        e_to In_Hall_Of_Mt_King,
+        w_to In_Secret_Canyon,
+        before [;
+          Go:
+            if (noun == w_obj) canyon_from = self;
+        ],
+        d_to In_N_S_Canyon;

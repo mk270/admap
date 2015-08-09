@@ -1,0 +1,135 @@
+SETUP
+CREATOR Zabre :: Baftemafte
+TIME Eternity and beyond [Year 1958]
+TITLE Unverified map over Trinity. 2 Jan 1990
+
+% London, locations.
+R blgate (Black Lion/Gate) 1 9 at
+R interr (Inverness/Terrace) blgate e
+R brwalk (Broad Walk) blgate s
+R ropond (Round Pond) blgate se
+R pagate (Palace Gate) brwalk s s
+R wabe (The Wabe) ropond s
+R flwalk (Flower Walk) wabe se
+R lagate (Lancaster/Gate) interr e
+R lawalk (Lancaster/Walk) ropond e
+R lowater (Long Water) lawalk e e
+R wading (Wading) lowater e
+R kurt (Impossible/attempt/field) 10 2 at
+
+% London, connections.
+blgate e u interr w
+blgate se ropond nw
+blgate s d brwalk n
+brwalk ne d interr sw
+brwalk e ropond w
+brwalk se wabe nw
+brwalk s S pagate n
+pagate ne wabe sw
+pagate e E flwalk w
+interr s ropond n
+interr se lawalk nw
+interr e lagate w
+% Indikera "down"
+ropond e d lawalk w
+ropond s wabe n
+wabe ne lawalk sw
+wabe se u flwalk nw
+lagate s lawalk n
+lagate sw d ropond ne
+lawalk s S flwalk n
+lawalk e closed E oneway lowater w oneway
+lowater e wading w
+blgate n u interr n
+
+% Kalibrering
+R r0000 0 0 at
+R r0023 0 23 at
+R r0022 0 22 at
+R r0021 0 21 at
+R r0020 0 20 at
+R r0808 () 8 8 at
+R r0809 8 9 at
+R r0810 8 10 at
+R r0805 8 5 at
+R r0905 9 5 at
+R r1005 10 5 at
+R r1105 11 5 at
+
+% Island (via T in Mesa), locations
+R webeach (West Beach) 1 4 at
+R nobeach (North Beach) webeach ne
+R sobeach (South Beach) webeach se s
+R eabeach (East Beach) sobeach ne n
+R boscaff (Bottom of/Scaffold) sobeach n
+R scaffold boscaff n
+
+% Island, connections
+webeach n nobeach w EW
+webeach ne nobeach sw
+webeach s sobeach w EW
+webeach se sobeach nw N
+sobeach n boscaff s
+sobeach e eabeach s NS
+sobeach ne eabeach sw
+nobeach e eabeach n NS
+nobeach se eabeach nw
+boscaff n scaffold s
+
+ALTBOXWIDTH 0.5
+ALTBOXHEIGHT 1.5
+R Fisk 3 13 at dash
+R Snus Fisk e
+R Slime (Slime Bandits) Snus e e
+Fisk e Snus w
+Snus n ?
+Snus se closed ?
+Snus sw u oneway
+R Katt Fisk alt n n
+Katt s normal Fisk n
+R ppp (Pudel/Hund/Morr) alt Katt e
+R hhh (Mammas/Bruna/Fisk/Trasa) ppp s
+Katt e ppp w
+hhh n ppp s
+normal
+Slime w d closed
+Slime nw d closed
+Slime ne u closed
+Slime se u oneway
+Slime w ?
+Slime n d oneway
+Slime e u oneway
+Slime s Snus se EW dash
+
+TEXT Slime e e
+Katten sover i en sko
+Leve Leve den hemska katten
+ENDTEXT
+INDEX kaka @sw r0805
+INDEX sko r0905
+INDEX ost @ne r1005
+INDEX lampa @se alt Katt
+normal
+TEXT eabeach @EN
+"Ack," said Snowwhite
+to the astonished dwarf
+"Beyond this mountain delves outrageous horrors."
+ENDTEXT
+TEXT sobeach @S
+44 cookies
+Wild slurp
+Me too!
+ENDTEXT
+TEXT r0808 @center
+Babian!
+Rune!
+Smisk!
+ENDTEXT
+TEXT r0810 @NW
+Lampan sjunger
+ENDTEXT
+TEXT r0810 @WS
+Fisk
+Orm
+Ballong
+ENDTEXT
