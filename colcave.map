@@ -31,8 +31,16 @@ R witts (Witts End) anteroom e
 R dirty (Dirty Passage) dusty e
 R onbrinkofpit (On Brink of Pit) dirty e
 
-
 R belowgrate (Below Grate) 10 2 at
+R outsidegrate (Outside Grate) belowgrate n
+R endofroad (End of Road) outsidegrate n n n
+R building (Building) endofroad e
+R hill (Hill) endofroad w
+R valley (Valley) endofroad s
+R slit (Slit) valley s
+R forest1 (Forest) endofroad n
+R forest2 (Forest) endofroad nw
+
 R cobblecrawl (Cobble Crawl) belowgrate w
 R debrisroom (Debris Room) cobblecrawl w
 R awkslope (Awkward Slope) debrisroom w
@@ -211,15 +219,6 @@ deadend8 s tewcanyon w
 nscanyon n tewcanyon s
 nscanyon s canyonde n
 secewcanyon n d nscanyon se oneway
-
-R endofroad (End of Road) 10 10 at
-R building (Building) endofroad e
-R hill (Hill) endofroad w
-R valley (Valley) endofroad s
-R slit (Slit) valley s
-R outsidegrate (Outside Grate) slit s
-R forest1 (Forest) endofroad n
-R forest2 (Forest) endofroad nw
 
 endofroad e building w
 endofroad s valley n
