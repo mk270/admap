@@ -32,23 +32,24 @@ R dirty (Dirty Passage) dusty e
 R onbrinkofpit (On Brink of Pit) dirty e
 
 
-R belowgrate (Below Grate) 11 2 at
+R belowgrate (Below Grate) 10 2 at
 R cobblecrawl (Cobble Crawl) belowgrate w
 R debrisroom (Debris Room) cobblecrawl w
 R awkslope (Awkward Slope) debrisroom w
 R birdcmr (Bird Chamber) awkslope w
 R topsmallpit (Top of Small Pit) birdcmr w
-R misthall (Hall of Mists) topsmallpit ne ne e e
+R misthall (Hall of Mists) topsmallpit ne ne e
 R lowroom (Low Room) misthall s
 R fissuree (East Fissure) misthall w
 R fissurew (West Fissure) fissuree w w
-R wmisthall (W Hall of Mists) fissurew w
+R wmisthall (W Hall of Mists) fissurew w w
 R mtking (Mt King) misthall nw nw
 R lownspass (Low NS Pass) mtking n
 R alikemaze1 (Alike Maze 1) wmisthall s
 R longhalle (E Long Hall) wmisthall w
 R longhallw (W Long Hall) longhalle w
-R crossover (Crossover) mtking w w
+R wschamber (W Chamber) mtking w w w
+R crossover (Crossover) wschamber w
 R diffmaze1 (Diff Maze 1) longhallw s
 
 belowgrate w cobblecrawl e
@@ -72,10 +73,9 @@ longhallw n crossover s
 R deadend7 (Dead End) crossover n
 crossover n deadend7 s
 
-R wschamber (W Chamber) mtking w
 R sschamber (S Chamber) mtking s
-R secewcanyon (Secret EW Canyon) mtking sw w w w w
-R dragon (Dragon Canyon) secewcanyon w w
+R secewcanyon (Secret EW Canyon) mtking sw
+R dragon (Dragon Canyon) secewcanyon w
 crossover e wschamber w u
 wschamber e mtking w
 sschamber n mtking s
@@ -193,7 +193,7 @@ waterfall w steepincline n
 steepincline nw d llroom w oneway
 
 R secnscan0 (Secret NS Canyon) dragon n
-R mirror (Mirror Canyon) secnscan0 n
+R mirror (Mirror Canyon) secnscan0 n n
 R reservoir (Reservoir) mirror n
 
 dragon n secnscan0 s
@@ -201,7 +201,7 @@ secnscan0 n mirror s
 mirror n reservoir s
 dragon e secewcanyon w
 
-slab sw u secnscan0 ne d
+slab sw u secnscan0 nw d
 
 R deadend8 (Dead End 8) tewcanyon nw
 R nscanyon (NS Canyon) tewcanyon s
@@ -210,14 +210,14 @@ R canyonde (Canyon Dead End) nscanyon s
 deadend8 s tewcanyon w
 nscanyon n tewcanyon s
 nscanyon s canyonde n
-secewcanyon n d nscanyon w oneway
+secewcanyon n d nscanyon se oneway
 
 R endofroad (End of Road) 10 10 at
 R building (Building) endofroad e
 R hill (Hill) endofroad w
 R valley (Valley) endofroad s
 R slit (Slit) valley s
-R outsidegrate (Outside Grate) slit se
+R outsidegrate (Outside Grate) slit s
 R forest1 (Forest) endofroad n
 R forest2 (Forest) endofroad nw
 
