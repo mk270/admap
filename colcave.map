@@ -31,8 +31,8 @@ R witts (Witts End) anteroom e
 R dirty (Dirty Passage) dusty e
 R onbrinkofpit (On Brink of Pit) dirty e
 
-R belowgrate (Below Grate) 10 2 at
-R outsidegrate (Outside Grate) belowgrate n
+R belowgrate (Below Grate) 12 2 at
+R outsidegrate (Outside Grate) belowgrate nw
 R endofroad (End of Road) outsidegrate n n n
 R building (Building) endofroad e
 R hill (Hill) endofroad w
@@ -46,12 +46,12 @@ R debrisroom (Debris Room) cobblecrawl w
 R awkslope (Awkward Slope) debrisroom w
 R birdcmr (Bird Chamber) awkslope w
 R topsmallpit (Top of Small Pit) birdcmr w
-R misthall (Hall of Mists) topsmallpit ne ne e
+R misthall (Hall of Mists) topsmallpit ne ne
 R lowroom (Low Room) misthall s
 R fissuree (East Fissure) misthall w
 R fissurew (West Fissure) fissuree w w
 R wmisthall (W Hall of Mists) fissurew w w
-R mtking (Mt King) misthall nw nw
+R mtking (Mt King) misthall n nw
 R lownspass (Low NS Pass) mtking n
 R alikemaze1 (Alike Maze 1) wmisthall s
 R longhalle (E Long Hall) wmisthall w
@@ -89,7 +89,7 @@ wschamber e mtking w
 sschamber n mtking s
 mtking sw secewcanyon e
 
-R y2 (Y2) lownspass n
+R y2 (Y2) lownspass n n
 R jumblerock (Jumble of Rock) y2 se
 R windowpit1 (Window Pit 1) y2 w
 
@@ -200,8 +200,8 @@ immense n waterfall s
 waterfall w steepincline n
 steepincline nw d llroom w oneway
 
-R secnscan0 (Secret NS Canyon) dragon n
-R mirror (Mirror Canyon) secnscan0 n n
+R secnscan0 (Secret NS Canyon) dragon n n n
+R mirror (Mirror Canyon) secnscan0 n
 R reservoir (Reservoir) mirror n
 
 dragon n secnscan0 s
@@ -218,7 +218,7 @@ R canyonde (Canyon Dead End) nscanyon s
 deadend8 s tewcanyon w
 nscanyon n tewcanyon s
 nscanyon s canyonde n
-secewcanyon n d nscanyon se oneway
+secewcanyon nw d nscanyon se oneway
 
 endofroad e building w
 endofroad s valley n
